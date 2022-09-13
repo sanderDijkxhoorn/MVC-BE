@@ -1,18 +1,12 @@
 <?php
-
-// Database config
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'mvc_be');
+define('DB_NAME', 'mvcframework');
 
-// App root
-define('APPROOT', dirname(dirname(__FILE__)));
+define('APPROOT', dirname(dirname(__FILE__))) ;
 
-// URL root
-define('URLROOT', 'http://mvc.be');
+define('URLROOT', 'http://mvc-hoppatee.be');
 
-// Site name
-define('SITENAME', 'MVC');
-
+define('SITENAME', 'MVC Framework');
 ?>
