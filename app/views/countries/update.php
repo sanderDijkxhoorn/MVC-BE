@@ -30,7 +30,7 @@
             </tr>
             <tr>
                 <td>
-                    <input type="submit" value="update">
+                    <input type="submit" value="Bewerken">
                 </td>
             </tr>
         </tbody>

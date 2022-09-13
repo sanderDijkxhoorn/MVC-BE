@@ -42,12 +42,14 @@ class Countries extends Controller
   public function update($id = null)
   {
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+      try {
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-      if($this->countryModel->updateCountry($_POST)){
+        $this->countryModel->updateCountry($_POST);
         header('Location: ' . URLROOT . '/countries/index');
-      } else {
-        die('Er is iets misgegaan');
+      } catch (PDOException $e) {
+        echo 'Er is iets misgegaan tijdens het bewerken van een land';
+        header('Refresh: 2; url=' . URLROOT . '/countries/index');
       }
     } else {
       $row = $this->countryModel->getSingleCountry($id);
@@ -58,6 +60,39 @@ class Countries extends Controller
       ];
 
       $this->view('countries/update', $data);
+    }
+  }
+
+  public function delete($id)
+  {
+    $this->countryModel->deleteCountry($id);
+
+    $data = ['deleteStatus' => "Het land met id $id is verwijderd"];
+
+    $this->view('countries/delete', $data);
+
+    header('Refresh: 2; URL=' . URLROOT . '/countries/index');
+  }
+
+  public function create()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      try {
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        $this->countryModel->createCountry($_POST);
+
+        header('Location: ' . URLROOT . '/countries/index');
+      } catch (PDOException $e) {
+        echo 'Er is iets misgegaan tijdens het aanmaken van het land';
+        header('Refresh: 2; url=' . URLROOT . '/countries/index');
+      }
+    } else {
+      $data = [
+        'title' => '<h1>Nieuw land toevoegen</h1>'
+      ];
+
+      $this->view('countries/create', $data);
     }
   }
 }

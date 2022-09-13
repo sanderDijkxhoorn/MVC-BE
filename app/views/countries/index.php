@@ -1,5 +1,7 @@
 <?php echo $data["title"]; ?>
 
+<a href="<?=URLROOT;?>/countries/create">Nieuw land toevoegen</a>
+
 <table>
   <thead>
     <th>id</th>
