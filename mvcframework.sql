@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 13, 2022 at 07:23 AM
+-- Generation Time: Sep 20, 2022 at 04:02 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `mvcframework`
 --
+CREATE DATABASE IF NOT EXISTS `mvcframework` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `mvcframework`;
 
 -- --------------------------------------------------------
 
@@ -43,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `country` (
 
 INSERT INTO `country` (`id`, `name`, `capitalCity`, `continent`, `population`) VALUES
 (1, 'Nederland', 'Amsterdam', 'Zuid-Amerika', 17134873),
-(2, 'Rwandas', 'Kigalies', 'Europa', 12952219),
+(2, 'Rwandass', 'Kigaliess', 'Europa', 129522193),
 (3, 'Chili', 'Santiago', 'Zuid-Amerika', 19116201),
 (4, 'Canada', 'Ottawa', 'Noord-Amerika', 37742154),
 (5, 'Australië', 'Canberra', 'Australië/Oceanië', 25499884),
