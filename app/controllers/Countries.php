@@ -9,15 +9,11 @@ class Countries extends Controller
 
   public function index()
   {
-    /**
-     * Haal via de method getFruits() uit de model Fruit de records op
-     * uit de database
-     */
+
+    // Haal via de method getFruits() uit de model Fruit de records op uit de database
     $countries = $this->countryModel->getCountries();
 
-    /**
-     * Maak de inhoud voor de tbody in de view
-     */
+    // Maak de inhoud voor de tbody in de view
     $rows = '';
     foreach ($countries as $value) {
       $rows .= "<tr>
@@ -30,7 +26,6 @@ class Countries extends Controller
                   <td><a href='" . URLROOT . "/countries/delete/$value->id'>delete</a></td>
                 </tr>";
     }
-
 
     $data = [
       'title' => '<h1>Landenoverzicht</h1>',

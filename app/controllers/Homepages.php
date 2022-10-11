@@ -1,7 +1,8 @@
 <?php
-class HomePages extends Controller {
-
-  public function index() {
+class HomePages extends Controller
+{
+  public function index()
+  {
     $data = [
       'title' => "Homepage"
     ];

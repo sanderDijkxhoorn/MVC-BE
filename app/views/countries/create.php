@@ -11,19 +11,19 @@
             </tr>
             <tr>
                 <td>
-                <label for="capitalCity">Hoodstad van het land</label>
+                    <label for="capitalCity">Hoodstad van het land</label>
                     <input type="text" name="capitalCity" id="capitalCity">
                 </td>
             </tr>
             <tr>
                 <td>
-                <label for="continent">Continent van het land</label>
+                    <label for="continent">Continent van het land</label>
                     <input type="text" name="continent" id="continent">
                 </td>
             </tr>
             <tr>
                 <td>
-                <label for="population">Aantal inwoners</label>
+                    <label for="population">Aantal inwoners</label>
                     <input type="number" name="population" id="population">
                 </td>
             </tr>

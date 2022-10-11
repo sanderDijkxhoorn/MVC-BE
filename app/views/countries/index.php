@@ -1,6 +1,6 @@
 <?php echo $data["title"]; ?>
 
-<a href="<?=URLROOT;?>/countries/create">Nieuw land toevoegen</a>
+<a href="<?= URLROOT; ?>/countries/create">Nieuw land toevoegen</a>
 
 <table>
   <thead>
@@ -13,8 +13,7 @@
     <th>delete</th>
   </thead>
   <tbody>
-    <?=$data['countries']?>
+    <?= $data['countries'] ?>
   </tbody>
 </table>
-<a href="<?=URLROOT;?>/homepages/index">terug</a>
-
+<a href="<?= URLROOT; ?>/homepages/index">terug</a>

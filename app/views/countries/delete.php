@@ -1,1 +1,1 @@
-<?php echo $data["deleteStatus"]; ?>
+<?php echo $data["deleteStatus"];
