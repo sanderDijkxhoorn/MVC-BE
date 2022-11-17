@@ -2,7 +2,7 @@
 
 <a href="<?= URLROOT; ?>/countries/create">Nieuw land toevoegen</a>
 
-<table>
+<table class="table">
   <thead>
     <th>id</th>
     <th>Land</th>
