@@ -11,81 +11,105 @@ class Lessen extends Controller
   {
     $lessen = $this->lesModel->getLessen();
 
+    // Vardumpie
+    var_dump($lessen);
+
     // Maak de inhoud voor de tbody in de view
     $rows = '';
-    foreach ($lessen as $value) {
+    foreach ($lessen as $les) {
+      $dateTimeObj = new DateTimeImmutable($les->DatumTijd, new DateTimeZone('Europe/Amsterdam'));
+      $date = $dateTimeObj->format('d-m-Y');
+      $time = $dateTimeObj->format('H:i');
+
       $rows .= "<tr>
-                  <td>$value->DatumTijd</td>
-                  <td>$value->Tijd</td>
-                  <td>$value->Naam</td>
-                  <td>$value->Lesinfo</td>
-                  <td>$value->Onderwerp</td>
-                  <td><a href='" . URLROOT . "/lessen/update/$value->Id'>update</a></td>
-                  <td><a href='" . URLROOT . "/lessen/delete/$value->Id'>delete</a></td>
+                  <td>$date</td>
+                  <td>$time</td>
+                  <td>$les->LENA</td>
+                  <td>$les->Lesinfo</td>
+                  <td>$les->Onderwerp</td>
+                  <td>
+                    <a href='" . URLROOT . "/lessen/update/$les->LesId' class='btn btn-primary'>
+                      <img src='" . URLROOT . "/img/b_sbrowse.png' alt='table picture' style='width:20px; height:20px;'>
+                    </a>
+                  </td>
+                  <td>
+                    <a href='" . URLROOT . "/lessen/delete/$les->LesId' class='btn btn-primary'>
+                      <img src='" . URLROOT . "/img/page_delete.png' alt='cross delete picture' style='width:20px; height:20px;'>
+                    </a>
+                  </td>
                 </tr>";
     }
 
     $data = [
-      'title' => '<h1>Lesrooster overzicht</h1>',
-      'lessen' => $rows
+      'title' => 'Lesrooster overzicht',
+      'lessen' => $rows,
+      'instructeurName' => $lessen[0]->INNA
     ];
     $this->view('lessen/index', $data);
   }
 
-  public function update($id = null)
-  {
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
-      try {
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  public function topicLesson($id = null) {
+    $data = [
+      'title' => 'Onderwerpen Les'
+    ];
 
-        $this->lesModel->updateLes($_POST);
-        header('Location: ' . URLROOT . '/lessen/index');
-      } catch (PDOException $e) {
-        echo 'Er is iets misgegaan tijdens het bewerken van een les';
-        header('Refresh: 2; url=' . URLROOT . '/lessen/index');
-      }
-    } else {
-      $row = $this->lesModel->getSingleLes($id);
-
-      $data = [
-        'title' => '<h1>Lesrooster bijwerken</h1>',
-        'row' => $row
-      ];
-
-      $this->view('lessen/update', $data);
-    }
+    $this->view('lessen/topiclesson', $data);
   }
 
-  public function delete($id)
-  {
-    $this->lesModel->deleteLes($id);
+  // public function update($id = null)
+  // {
+  //   if ($_SERVER['REQUEST_METHOD'] == "POST") {
+  //     try {
+  //       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-    $data = ['deleteStatus' => "De les met id $id is verwijderd"];
+  //       $this->lesModel->updateLes($_POST);
+  //       header('Location: ' . URLROOT . '/lessen/index');
+  //     } catch (PDOException $e) {
+  //       echo 'Er is iets misgegaan tijdens het bewerken van een les';
+  //       header('Refresh: 2; url=' . URLROOT . '/lessen/index');
+  //     }
+  //   } else {
+  //     $row = $this->lesModel->getSingleLes($id);
 
-    $this->view('lessen/delete', $data);
+  //     $data = [
+  //       'title' => '<h1>Lesrooster bijwerken</h1>',
+  //       'row' => $row
+  //     ];
 
-    header('Refresh: 2; URL=' . URLROOT . '/lessen/index');
-  }
+  //     $this->view('lessen/update', $data);
+  //   }
+  // }
 
-  public function create()
-  {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      try {
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  // public function delete($id)
+  // {
+  //   $this->lesModel->deleteLes($id);
 
-        $this->lesModel->createLes($_POST);
+  //   $data = ['deleteStatus' => "De les met id $id is verwijderd"];
 
-        header('Location: ' . URLROOT . '/lessen/index');
-      } catch (PDOException $e) {
-        echo 'Er is iets misgegaan tijdens het aanmaken van de les';
-        header('Refresh: 2; url=' . URLROOT . '/lessen/index');
-      }
-    } else {
-      $data = [
-        'title' => '<h1>Nieuwe les toevoegen</h1>'
-      ];
+  //   $this->view('lessen/delete', $data);
 
-      $this->view('lessen/create', $data);
-    }
-  }
+  //   header('Refresh: 2; URL=' . URLROOT . '/lessen/index');
+  // }
+
+  // public function create()
+  // {
+  //   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  //     try {
+  //       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+  //       $this->lesModel->createLes($_POST);
+
+  //       header('Location: ' . URLROOT . '/lessen/index');
+  //     } catch (PDOException $e) {
+  //       echo 'Er is iets misgegaan tijdens het aanmaken van de les';
+  //       header('Refresh: 2; url=' . URLROOT . '/lessen/index');
+  //     }
+  //   } else {
+  //     $data = [
+  //       'title' => '<h1>Nieuwe les toevoegen</h1>'
+  //     ];
+
+  //     $this->view('lessen/create', $data);
+  //   }
+  // }
 }
