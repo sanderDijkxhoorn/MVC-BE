@@ -48,9 +48,38 @@ class Lessen extends Controller
     $this->view('lessen/index', $data);
   }
 
-  public function topicLesson($id = null) {
+  public function topicLesson($id = null)
+  {
+    $topics = $this->lesModel->getTopics($id);
+
+    $rows = "";
+
+    foreach ($topics as $topic) {
+      $rows .= "<tr>
+                  <td>$topic->Onderwerp</td>
+                </tr>";
+    }
+
+    if ($rows) {
+      // Split the date and time
+      $dateTimeObj = new DateTimeImmutable($topics[0]->DatumTijd, new DateTimeZone('Europe/Amsterdam'));
+      $date = $dateTimeObj->format('d-m-Y');
+      $time = $dateTimeObj->format('H:i');
+      $id = $topics[0]->Id;
+    } else {
+      $date = '';
+      $time = '';
+      $id = '';
+    }
+
+
+
     $data = [
-      'title' => 'Onderwerpen Les'
+      'title' => 'Onderwerpen Les',
+      'rows' => $rows,
+      'date' => $date,
+      'time' => $time,
+      'lessonId' => $id
     ];
 
     $this->view('lessen/topiclesson', $data);
